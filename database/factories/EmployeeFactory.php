@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Model::class, function (Faker $faker) {
     return [
-        'company_id' => rand(1, 10),
+        'company_id' => rand(1, 1000),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'phone' => $faker->tollFreePhoneNumber,
