@@ -3,13 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import auth from "./Modules/auth";
+import companies from "./Modules/companies";
+import employees from "./Modules/employees";
+
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    auth,
+    companies,
+    employees,
   }
 })
