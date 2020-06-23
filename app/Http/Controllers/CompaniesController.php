@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\Employee;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Response;
 
 use App\Faker\Logo as Faker;
@@ -15,10 +14,9 @@ class CompaniesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return Company::orderBy('id', 'desc')->paginate(10);
     }
@@ -26,10 +24,10 @@ class CompaniesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CompanyRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(CompanyRequest $request): JsonResponse
     {
         $company = new Company;
         $company->fill($request->all());
@@ -59,11 +57,11 @@ class CompaniesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param CompanyRequest $request
+     * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
         $company = Company::find($id);
         $company->fill($request->all());
@@ -81,5 +79,6 @@ class CompaniesController extends Controller
     public function destroy($id)
     {
         Company::find($id)->delete();
+        return response(null, 205);
     }
 }

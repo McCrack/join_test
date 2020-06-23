@@ -7,11 +7,14 @@
                     <span class="cursor-pointer"
                             v-on:click="DELETE_COMPANY"
                             v-tooltip.bottom="{
-                            content: 'Delete Company',
+                            content: DICTIONARY['delete_company'],
                             classes: 'tooltip pink accent-4 white-text'
                         }">
                         <i class="material-icons">delete</i>
                     </span>
+                </div>
+                <div v-else>
+                    <div class="caption">{{ DICTIONARY['new_company'] }}</div>
                 </div>
             </div>
             <div class="flex-start-center">
@@ -23,7 +26,7 @@
                            type="text"
                            required
                            v-model="COMPANY.name">
-                    <label for="company_name">Company Name</label>
+                    <label for="company_name">{{ DICTIONARY['company_name'] }}</label>
                 </div>
             </div>
             <div class="row">
@@ -38,11 +41,11 @@
                     <input id="website"
                            type="url"
                            v-model="COMPANY.website">
-                    <label for="website">Website</label>
+                    <label for="website">{{ DICTIONARY['site'] }}</label>
                 </div>
             </div>
-            <button v-if="COMPANY.id" type="submit" class="pink accent-4  btn-small">save</button>
-            <button v-else type="submit" class="btn-small">create</button>
+            <button v-if="COMPANY.id" type="submit" class="pink accent-4  btn-small">{{ DICTIONARY['save'] }}</button>
+            <button v-else type="submit" class="btn-small">{{ DICTIONARY['create'] }}</button>
         </form>
         <div v-if="COMPANY.id" class="company-employees white">
             <div class="bar flex-between-center">
@@ -50,7 +53,7 @@
                 <span class="cursor-pointer"
                       v-on:click="addEmployee"
                       v-tooltip.bottom="{
-                        content: 'Add Employe',
+                        content: DICTIONARY['add_employee'],
                         classes: 'tooltip pink accent-4 white-text'
                     }">
                     <i class="material-icons">add</i>
@@ -84,7 +87,8 @@
             ...mapGetters([
                 'COMPANY',
                 'EMPLOYEE',
-                'COMPANY_EMPLOYEES'
+                'COMPANY_EMPLOYEES',
+                'DICTIONARY',
             ]),
         },
         methods: {

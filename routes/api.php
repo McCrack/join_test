@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function ($router) {
 	//Route::post('register', 'AuthController@register');
 	Route::post('login', 'AuthController@login');
-	
+
 	Route::get('refresh', 'AuthController@refresh')->middleware('jwt.refresh');
 
 	Route::middleware('jwt.auth')->group(function(){
@@ -37,4 +37,12 @@ Route::middleware('jwt.auth')->group(function(){
 		'companies' => 'CompaniesController',
 		'employees' => 'EmployeesController',
 	]);
+});
+
+Route::get('dictionary/{lang}', function($lang){
+    $path = resource_path("lang/{$lang}/front.php");
+    if (is_readable($path)) {
+        $dictionary = include($path);
+    }
+    return $dictionary ?? [];
 });

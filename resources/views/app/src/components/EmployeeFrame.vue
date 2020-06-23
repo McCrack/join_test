@@ -6,15 +6,15 @@
                 <div class="caption">Employee ID: {{EMPLOYEE.id}}</div>
                 <span class="cursor-pointer"
                       v-on:click="DELETE_EMPLOYEE"
-                      v-tooltip.bottom="{
-                        content: 'Dismiss',
+                      v-tooltip.left="{
+                        content: DICTIONARY['dismiss'],
                         classes: 'tooltip pink accent-4 white-text'
                     }">
                     <i class="material-icons">delete_sweep</i>
                 </span>
             </div>
             <div v-else class="bar">
-                <div class="caption">New Employee</div>
+                <div class="caption">{{ DICTIONARY['new_employee'] }}</div>
             </div>
 
             <div class="row">
@@ -22,13 +22,13 @@
                     <input id="first_name"
                            type="text"
                            v-model="EMPLOYEE.first_name">
-                    <label for="first_name">First Name</label>
+                    <label for="first_name">{{ DICTIONARY['first_name'] }}</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="last_name"
                            type="text"
                            v-model="EMPLOYEE.last_name">
-                    <label for="last_name">Last Name</label>
+                    <label for="last_name">{{ DICTIONARY['last_name'] }}</label>
                 </div>
             </div>
             <div class="row">
@@ -43,11 +43,11 @@
                            type="tel"
                            class="validate"
                            v-model="EMPLOYEE.phone">
-                    <label for="phone">Phone</label>
+                    <label for="phone">{{ DICTIONARY['phone'] }}</label>
                 </div>
             </div>
-            <button v-if="EMPLOYEE.id" type="submit" class="pink accent-4  btn-small">save</button>
-            <button v-else type="submit" class="btn-small">create</button>
+            <button v-if="EMPLOYEE.id" type="submit" class="pink accent-4  btn-small">{{ DICTIONARY['save'] }}</button>
+            <button v-else type="submit" class="btn-small">{{ DICTIONARY['create'] }}</button>
         </form>
     </div>
 </template>
@@ -61,6 +61,7 @@
             ...mapGetters([
                 'COMPANY',
                 'EMPLOYEE',
+                'DICTIONARY',
             ]),
         },
         methods: {

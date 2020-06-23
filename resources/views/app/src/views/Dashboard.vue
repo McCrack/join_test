@@ -3,13 +3,13 @@
         <div class="row cyan darken-3 white-text">
             <div class="bar col s4  flex-between-center">
                 <i class="material-icons">business</i>
-                <div class="caption flex-grow">Companies</div>
-                <span class="cursor-pointer"
-                      v-on:click="addCompany"
+                <div class="caption flex-grow">{{ DICTIONARY['companies'] }}</div>
+                <span v-on:click="addCompany"
+                      class="cursor-pointer"
                       v-tooltip.bottom="{
-                    content: 'Add Company',
-                    classes: 'tooltip pink accent-4 white-text'
-                }">
+                        content: DICTIONARY['add_company'],
+                        classes: 'tooltip pink accent-4 white-text'
+                       }">
                 <i class="material-icons">add</i>
             </span>
             </div>
@@ -17,7 +17,18 @@
 
             </div>
             <div class="bar col s4 flex-end-center">
-                <span v-on:click="logout" ><i class="material-icons">exit_to_app</i></span>
+                <span v-if="language === 'ua'"
+                      v-on:click="changeLang('en')"
+                      class="language">EN</span>
+                <span v-else-if="language === 'en'"
+                      v-on:click="changeLang('ua')"
+                      class="language">UA</span>
+                <span v-on:click="logout"
+                      class="cursor-pointer"
+                      v-tooltip.left="{
+                        content: 'Logout',
+                        classes: 'tooltip pink accent-4 white-text'
+                      }"><i class="material-icons">exit_to_app</i></span>
             </div>
         </div>
         <main class="blue-grey darken-4">
@@ -46,6 +57,7 @@
         name: "Dashboard",
         data() {
             return {
+                language: 'en',
                 newCompany: false
             }
         },
@@ -55,16 +67,27 @@
             EmployeeFrame: () => import('../components/EmployeeFrame'),
         },
         computed: {
-            ...mapGetters(['COMPANY','EMPLOYEE']),
+            ...mapGetters([
+                'COMPANY',
+                'EMPLOYEE',
+                'DICTIONARY',
+            ]),
         },
         methods: {
-            ...mapActions(['CREATE_COMPANY']),
+            ...mapActions([
+                'CREATE_COMPANY',
+                'LOAD_DICTIONARY',
+            ]),
             logout() {
                 this.$store.dispatch('logout')
             },
             addCompany() {
                 this.newCompany = true;
                 this.$store.commit('dropCompany')
+            },
+            changeLang(lang) {
+                this.language = lang;
+                this.LOAD_DICTIONARY(lang);
             },
         },
         created() {
@@ -74,6 +97,9 @@
                 .common['Authorization'] = "Bearer " + localStorage.getItem('token');
             M.AutoInit();
         },
+        mounted() {
+            this.LOAD_DICTIONARY(this.language);
+        }
     }
 </script>
 
@@ -93,5 +119,11 @@
     .company {
         top: 4px;
         position: sticky;
+    }
+    .language {
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: underline;
+        text-transform: uppercase;
     }
 </style>

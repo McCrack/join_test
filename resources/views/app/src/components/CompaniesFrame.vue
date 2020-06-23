@@ -12,7 +12,7 @@
                     <p>
                         <b>Email:</b>
                         {{company.email}} <br>
-                        <b>Site</b>:
+                        <b>{{ DICTIONARY['site'] }}</b>:
                         <a target="_blank"
                            v-bind:href="company.website"
                            v-on:click.prevent="">{{company.website}}</a>
@@ -47,7 +47,10 @@
             pagination: () => import('laravel-vue-pagination')
         },
         computed: {
-            ...mapGetters(['COMPANIES']),
+            ...mapGetters([
+                'COMPANIES',
+                'DICTIONARY'
+            ]),
         },
         methods: {
             ...mapActions(['GET_COMPANIES_LIST', 'GET_COMPANY']),
