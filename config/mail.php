@@ -51,6 +51,8 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
+            'domain' => '',
+            'secret' => 'b04b5c253e65db274794c05151c55128-468bde97-ee181ae8',
         ],
 
         'postmark' => [
