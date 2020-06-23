@@ -6,5 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'logo', 'website'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at',
+    ];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

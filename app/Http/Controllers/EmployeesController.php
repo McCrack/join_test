@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use App\Company;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -20,11 +23,16 @@ class EmployeesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $employee = new Employee();
+        $employee->fill($request->all());
+
+        $employee->save();
+
+        return response()->json($employee, 201);
     }
 
     /**
@@ -35,7 +43,7 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
+        return Employee::find($id);
     }
 
     /**
@@ -47,7 +55,11 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+        $employee->fill($request->all());
+        $employee->save();
+
+        return response(null, 204);
     }
 
     /**
@@ -58,6 +70,6 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Employee::find($id)->delete();
     }
 }

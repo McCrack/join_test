@@ -1,0 +1,67 @@
+.material-icons {
+    line-height: unset;
+}
+
+.row {
+    margin: 0;
+}
+
+.collection-item-title {
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.caption {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 0 0 5px;
+}
+.bar {
+    height: 48px;
+}
+.tooltip{
+    font-size: 13px;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
+.pagination {
+    margin: 4px 0;
+    padding: 10px;
+    text-align: right;
+}
+.page-link {
+    font-size: 14px !important;
+}
+.page-link > span {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.flex-end-center,
+.flex-start-center,
+.flex-around-center,
+.flex-between-center {
+    display: flex;
+    align-items: center;
+}
+.flex-end-center {
+    justify-content: flex-end;
+}
+.flex-start-center {
+    justify-content: flex-start;
+}
+.flex-between-center {
+    justify-content: space-between;
+}
+.flex-around-center {
+    justify-content: space-around;
+}
+.flex-grow {
+    flex-grow: 1;
+}

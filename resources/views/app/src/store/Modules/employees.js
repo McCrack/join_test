@@ -1,30 +1,69 @@
-//import http from "@/http";
+
 import router from "@/router";
+import axios from "axios";
+
 export default {
     state: {
-        employees: [],
+        employee: {},
     },
     getters: {
-        EMPLOYEES(state) {
-            return state.employees;
+        EMPLOYEE(state) {
+            return state.employee;
         }
     },
     mutations: {
-        stateEmployees(state, response) {
-            state.employees = response.data;
+        stateEmployee(state, data) {
+            state.employee = data;
         },
+        dropEmployee(state) {
+            state.employee = {};
+        },
+        setId(state, id) {
+            state.employee.id = id;
+            console.log(state.employee);
+        }
     },
     actions: {
-        COMPANIES_INDEX({commit}, page = 1) {
-            this.axios.get(`/api/employees?page=${page}`).then((response) => {
-                commit("stateEmployees", response.data);
-            }).catch((error) => {
-                if (Number(error.response.status) === 401) {
-                    router.push("login");
-                } else {
-                    console.error(error.response.data.message);
-                }
-            });
+        GET_EMPLOYEE({commit}, id) {
+            axios.get(`/employees/${id}`)
+                .then((response) => {
+                    commit("stateEmployee", response.data);
+                }).catch(error => {
+                    (401 === Number(error.response.status))
+                        ? router.push("login")
+                        : console.error(error.data.message);
+                });
+        },
+        UPDATE_EMPLOYEE({state}) {
+            axios.patch(`employees/${state.employee.id}`, state.employee)
+                .then()
+                .catch(error => {
+                    (401 === Number(error.response.status))
+                        ? router.push("login")
+                        : console.error(error.data.message);
+                });
+        },
+        CREATE_EMPLOYEE({commit, state}) {
+            axios.post('employees', state.employee)
+                .then(response => {
+                    commit('stateEmployee', response.data)
+                })
+                .catch(error => {
+                    (401 === Number(error.response.status))
+                        ? router.push("login")
+                        : console.error(error.data.message);
+                });
+        },
+        DELETE_EMPLOYEE({commit, state}) {
+            axios.delete(`employees/${state.employee.id}`)
+                .then(() => {
+                    commit('dropEmployee');
+                })
+                .catch(error => {
+                    (401 === Number(error.response.status))
+                        ? router.push("login")
+                        : console.error(error.data.message);
+                })
         },
     },
 };
