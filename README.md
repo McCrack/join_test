@@ -34,5 +34,18 @@
 </code>
 </pre>
 </li>
+<li>
+<p>
+Создать ссылку на storage
+<pre>
+<code>
+ php artisan storage:link
+</code>
+</pre>
+</p>
+</li>
 </ol>
-
+<hr>
+<p>
+Для вход используйте логин - <code>admin@admin.com</code> и пароль - <code>password</code>
+</p>
